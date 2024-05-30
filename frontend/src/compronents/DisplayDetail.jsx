@@ -1,13 +1,12 @@
-import React from 'react'
+import React from "react";
 
 const DisplayDetail = (props) => {
-    const {trashId} = props;
+	const { trashId } = props;
 
-    //ゴミの捨て場所とかをfetchする
+	//ゴミの捨て場所とかをfetchする
+	const getInfo = (id) => {};
 
-  return (
-    <div>DisplayDetail</div>
-  )
-}
+	return <div>DisplayDetail</div>;
+};
 
-export default DisplayDetail
+export default DisplayDetail;
