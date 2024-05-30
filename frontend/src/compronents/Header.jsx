@@ -1,7 +1,7 @@
 import React from "react";
 
 const Header = () => {
-  return <div>ヘッダー</div>;
+  return <h2>ごみ出しアプリ</h2>;
 };
 
 export default Header;
