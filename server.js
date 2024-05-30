@@ -11,21 +11,22 @@ const knex = require("knex")(config[environment]);
 const setupServer = () => {
   app.use(cors());
   app.use(express.json());
-  app.use("/", express.static(__dirname + "/frontend"));
+  app.use("/", express.static(__dirname + "/frontend/dist"));
 
   app.get("/api/items", async (req, res) => {
-    console.log("req.query.word: ", req.query.word);
-    if (!!req.query.word) {
-      const searchWord = req.query.word;
-      const likeNameItems = await knex
-        .select({ id: "id", itemName: "item_name" })
-        .from("item");
-      if (likeNameItems.length) {
-        return res.status(200).send();
-      }
-      return res.status(200).send([]);
+    // console.log("req.query.word: ", req.query.word);
+    // if (!!req.query.word) {
+    const searchWord = req.query.word;
+    const likeNameItems = await knex
+      .select({ id: "id", itemName: "item_name" })
+      .from("item")
+      .whereLike("item_name", `%${searchWord}%`);
+    if (likeNameItems.length) {
+      return res.status(200).send(likeNameItems);
     }
-    return res.status(400).send();
+    return res.status(200).send([]);
+    // }
+    // return res.status(200).send([]);
   });
 
   app.get("/api/items/:id", async (req, res) => {

@@ -32,9 +32,15 @@ const DisplayResult = (props) => {
 
   //ゴミの捨て場所とかをfetchする
   async function getItems(word) {
-    let Items = await fetch(`/api/items?word=${word}`);
-    Items = await Items.text();
-    setItemList(JSON.parse(Items));
+    console.log(word);
+    if (word === "") {
+      console.log("null");
+    } else {
+      const Items = await fetch(`/api/items?word=${word}`);
+      const itemArray = await Items.text();
+      console.log(itemArray);
+      setItemList(JSON.parse(itemArray));
+    }
   }
 
   useEffect(() => {

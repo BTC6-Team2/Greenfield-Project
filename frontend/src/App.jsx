@@ -11,7 +11,6 @@ const App = () => {
     <div>
       <Header />
       <SearchBar setSearchWord={setSearchWord} />
-      <h1>{searchWord}</h1>
       <DisplayResult searchWord={searchWord} />
       {/* <DisplayDetail /> */}
     </div>
