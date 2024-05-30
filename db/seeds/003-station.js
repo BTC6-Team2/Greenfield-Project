@@ -56,13 +56,6 @@ exports.seed = async function (knex) {
       type_id: 1,
     },
     {
-      address: "愛知県岡崎市八帖町字立島２番地１",
-      day_time:
-        "月〜金曜日(祝日含む) 午前８時３０分〜午後４時、土曜日(祝日含む) 午前８時３０分〜午前１１時３０分",
-      station_name: "八帖クリーンセンター",
-      type_id: 0,
-    },
-    {
       address: "愛知県岡崎市稲熊町字７丁目１７番地１",
       day_time: "毎日(土日・祝日含む) 午前９時〜午後４時",
       station_name: "総合資源ステーション りすた稲熊",
