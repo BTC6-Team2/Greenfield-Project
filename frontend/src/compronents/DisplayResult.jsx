@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+import Box from '@mui/material/Box';
 import DisplayDetail from "./DisplayDetail";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { DataGrid } from "@mui/x-data-grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+
 
 const DisplayResult = (props) => {
   const { searchWord } = props;
@@ -32,9 +35,9 @@ const DisplayResult = (props) => {
 
   //ゴミの捨て場所とかをfetchする
   async function getItems(word) {
-    console.log(word);
+    // console.log(word);
     if (word === "") {
-      console.log("null");
+      // console.log("null");
     } else {
       const Items = await fetch(`/api/items?word=${word}`);
       const itemArray = await Items.text();
@@ -57,14 +60,36 @@ const DisplayResult = (props) => {
 
   return (
     <React.Fragment>
-      <div style={{ height: 600, width: "80%" }}>
+      {/* <div style={{ height: 600, width: "80%" }}>
         <DataGrid columns={[{ field: "itemName" }]} rows={itemList} />
-      </div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open max-width dialog
-      </Button>
+      </div> */}
+  <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+<List>
+  {itemList.map((ele,index)=>{
+    return(
+    <ListItem key = {index} disablePadding>
+    <ListItemButton className='item' id={ele.id} onClick={() =>{
+            setTrashId(document.getElementsByClassName('item'));
+            handleClickOpen();
+          }}>
+      <ListItemText primary={ele.itemName} />
+    </ListItemButton>
+  </ListItem>
+  )})}
+          {/* <ListItem disablePadding >
+            <ListItemButton>
+              <ListItemText primary="Trash" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component="a" href="#simple-list">
+              <ListItemText primary="Spam" />
+            </ListItemButton>
+          </ListItem>*/}
+        </List> 
+        </Box>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Optional sizes</DialogTitle>
+        <DialogTitle>詳細</DialogTitle>
         <DialogContent>
           <DisplayDetail></DisplayDetail>
         </DialogContent>
