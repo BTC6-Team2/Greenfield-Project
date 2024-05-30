@@ -22,25 +22,28 @@ import Paper from '@mui/material/Paper';
 const DisplayDetail = (props) => {
   const { trashId } = props; //itemのid
 
-  const [info, setInfo] = useState([]);
+  const [info, setInfo] = useState();
 
   //ゴミの捨て場所とかをfetchする
   // GET api/items/:id
 
   useEffect(() => {
-    fetch(`/api/items/1`)
+    console.log(trashId)
+    fetch(`/api/items/${trashId}`)
       .then((res) => res.json())
-      // .then((res) => console.log(res))
-      .then((res) => setInfo([res]))
+      // .then((res) => console.log([res]))
+      // .then((res) => console.log(res.station))
+      .then((res) => setInfo(res))
       .catch((err) => console.error(err));
       // console.log({info})
-  }, []);
+  }, [trashId]);
+
+
 
   return (
     <>
-    {/* {console.log(info[0])} */}
-    <h2>品目：{info[0].itemName}</h2>
-    <h2>分類：{info[0].typeName}</h2>
+    <h2>品目：{info && info.itemName}</h2>
+    <h2>分類：{info && info.typeName}</h2>
     {/* <h2>{info[0] ? info[0].itemName}</h2>
     <h2>{info[0].typeName}</h2> */}
     <TableContainer component={Paper}>
@@ -53,7 +56,7 @@ const DisplayDetail = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {info.map((itemObj, index) => (
+          { info && info.station.map((itemObj, index) => (
             
             <TableRow
               key={index}

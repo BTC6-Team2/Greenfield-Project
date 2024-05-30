@@ -66,10 +66,11 @@ const DisplayResult = (props) => {
   <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
 <List>
   {itemList.map((ele,index)=>{
+    let idNum = ele.id
     return(
     <ListItem key = {index} disablePadding>
-    <ListItemButton className='item' id={ele.id} onClick={() =>{
-            setTrashId(document.getElementsByClassName('item'));
+    <ListItemButton className='item' onClick={() =>{
+            setTrashId(ele.id);
             handleClickOpen();
           }}>
       <ListItemText primary={ele.itemName} />
@@ -91,7 +92,7 @@ const DisplayResult = (props) => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>詳細</DialogTitle>
         <DialogContent>
-          <DisplayDetail></DisplayDetail>
+          <DisplayDetail trashId = {trashId}></DisplayDetail>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
