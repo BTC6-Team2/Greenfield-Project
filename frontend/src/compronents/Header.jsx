@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Header = () => {
-  return (
-    <div>Header</div>
-  )
-}
+  return <h2>ごみ出しアプリ</h2>;
+};
 
-export default Header
+export default Header;
