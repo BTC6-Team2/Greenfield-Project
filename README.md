@@ -22,9 +22,11 @@
 
 github のソースコードを fork して自分の PC に clone してください
 
-git switch -c <ブランチname>
-でブランチを作成
 
+<ブランチを作成してそのブランチに切り替えるコマンド> -cはcreateの略
+git switch -c <ブランチname>
+
+現在のブランチの確認
 git branchで確認
 
 npm install実施
