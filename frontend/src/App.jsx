@@ -13,7 +13,7 @@ const App = () => {
       <SearchBar setSearchWord={setSearchWord} />
       <h1>{searchWord}</h1>
       <DisplayResult searchWord={searchWord} />
-      <DisplayDetail />
+      {/* <DisplayDetail /> */}
     </div>
   );
 };
