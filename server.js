@@ -44,13 +44,15 @@ const setupServer = () => {
         .leftJoin("type", "item.type_id", "=", "type.id")
         .leftJoin("station", "type.id", "=", "station.type_id")
         .where("item.id", id)
-        .first()
+        // .first()
         .then((res) => ({
-          itemName: res.item_name,
-          typeName: res.type_name,
-          stationName: res.station_name,
-          stationAddress: res.address,
-          stationDayTime: res.day_time,
+          itemName: res[0].item_name,
+          typeName: res[0].type_name,
+          station: res.map((ele) => ({
+            stationName: ele.station_name,
+            stationAddress: ele.address,
+            stationDayTime: ele.day_time,
+          })),
         }));
       res.status(200).send(itemData);
     } catch (err) {
