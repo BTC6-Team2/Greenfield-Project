@@ -48,10 +48,8 @@ NODE_ENV : production
 
 ## アプリのテスト
 
-flea フォルダで npm run dev 　を実施
-
-localhost:8080 にアクセスして、アプリ画面が立ち上がるか試してください
-何か商品を出品して出品したものが反映されるか試してください
+npm run dev 　を実施
+localhost:3000 にアクセスして、アプリ画面が立ち上がることを確認してください
 
 ### database
 
