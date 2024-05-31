@@ -7,11 +7,14 @@ const environment = process.env.DATABASE_URL ? "production" : "development";
 const knex = require("knex")(config[environment]);
 
 // module.exports = knex(config[environment]);
-
 const setupServer = () => {
-  app.use(cors());
-  app.use(express.json());
   app.use("/", express.static(__dirname + "/frontend/dist"));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  app.use("/", require("./passport.js"));
+  app.use(cors());
+
+  //---------------------------------------------------
 
   app.get("/api/items", async (req, res) => {
     // console.log("req.query.word: ", req.query.word);
@@ -60,6 +63,7 @@ const setupServer = () => {
       return res.status(400).send();
     }
   });
+
   return app;
 };
 
@@ -67,9 +71,3 @@ const server = setupServer();
 const PORT = process.env.PORT || 3000;
 module.exports = { setupServer };
 app.listen(PORT, () => console.log(`listening on port : ${PORT}`));
-
-// 品目:
-// 分類:
-// 回収施設名:
-// 住所:
-// 開設時間:
