@@ -3,6 +3,8 @@ import Header from "./compronents/Header";
 import SearchBar from "./compronents/SearchBar";
 import DisplayResult from "./compronents/DisplayResult";
 import DisplayDetail from "./compronents/DisplayDetail";
+import MapField from "./compronents/MapField";
+
 
 const App = () => {
   const [searchWord, setSearchWord] = useState("");
@@ -13,6 +15,7 @@ const App = () => {
       <SearchBar setSearchWord={setSearchWord} />
       <DisplayResult searchWord={searchWord} />
       {/* <DisplayDetail /> */}
+      <MapField />
     </div>
   );
 };

@@ -66,7 +66,6 @@ const DisplayResult = (props) => {
   <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
 <List>
   {itemList.map((ele,index)=>{
-    let idNum = ele.id
     return(
     <ListItem key = {index} disablePadding>
     <ListItemButton className='item' onClick={() =>{
