@@ -8,32 +8,38 @@ import SearchIcon from "@mui/icons-material/Search";
 import DirectionsIcon from "@mui/icons-material/Directions";
 
 const SearchBar = (props) => {
-  const { setSearchWord } = props;
-  const inputRef = useRef(null);
+	const { setSearchWord } = props;
+	const inputRef = useRef(null);
 
-  return (
-    <Paper
-      component="form"
-      sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 400 }}
-    >
-      <InputBase
-        inputRef={inputRef}
-        id="inputText"
-        sx={{ ml: 1, flex: 1 }}
-        placeholder="調べたいゴミの名前を入力してください"
-        inputProps={{ "aria-label": "search google maps" }}
-      />
-      <IconButton
-        type="button"
-        sx={{ p: "10px" }}
-        aria-label="search"
-        onClick={() => setSearchWord(inputRef.current.value)}
-      >
-        <SearchIcon />
-      </IconButton>
-      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-    </Paper>
-  );
+	return (
+		<Paper
+			component="form"
+			sx={{
+				p: "2px 4px",
+				display: "flex",
+				alignItems: "center",
+				width: 400,
+				margin: 2,
+			}}
+		>
+			<InputBase
+				inputRef={inputRef}
+				id="inputText"
+				sx={{ ml: 1, flex: 1 }}
+				placeholder="調べたいゴミの名前を入力してください"
+				inputProps={{ "aria-label": "search google maps" }}
+			/>
+			<IconButton
+				type="button"
+				sx={{ p: "10px" }}
+				aria-label="search"
+				onClick={() => setSearchWord(inputRef.current.value)}
+			>
+				<SearchIcon />
+			</IconButton>
+			<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+		</Paper>
+	);
 };
 
 export default SearchBar;
