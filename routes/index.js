@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const environment = process.env.DATABASE_URL ? 'production' : 'development';
 
 // 特定のルートを管理する者らしい
 const router = express.Router();
@@ -15,6 +16,10 @@ require('dotenv').config({
 const GitHubStrategy = require('passport-github2').Strategy;
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+const siteURL =
+    environment === 'production'
+        ? 'https://greenfield-project-6urk.onrender.com'
+        : 'http://localhost:3000';
 console.log('ID:', GITHUB_CLIENT_ID);
 //-------------Github------------------------
 
@@ -52,7 +57,7 @@ passport.use(
         {
             clientID: GITHUB_CLIENT_ID,
             clientSecret: GITHUB_CLIENT_SECRET,
-            callbackURL: 'http://localhost:3000/auth/github/callback',
+            callbackURL: `${siteURL}/auth/github/callback`,
         },
         function (accessToken, refreshToken, profile, done) {
             check = profile;
