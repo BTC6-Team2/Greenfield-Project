@@ -4,6 +4,11 @@ import SearchBar from "./compronents/SearchBar";
 import DisplayResult from "./compronents/DisplayResult";
 import DisplayDetail from "./compronents/DisplayDetail";
 import SignIn from "./compronents/SignIn";
+import Map from "./compronents/Map";
+import RenderGroup from "./compronents/test";
+// ずっかさん試し
+import Mpp from "./compronents/Mapsample";
+import "./App.css";
 
 const App = () => {
     const [searchWord, setSearchWord] = useState("");
@@ -14,11 +19,14 @@ const App = () => {
             {!success ? (
                 <SignIn setSuccess={setSuccess}></SignIn>
             ) : (
-                <div>
+                <div className="main-container">
+                    {/* <Dashboard></Dashboard> */}
                     <Header />
-                    <SearchBar setSearchWord={setSearchWord} />
+                    <SearchBar setSearchWord={setSearchWord} tas/>
                     <DisplayResult searchWord={searchWord} />
-                    {/* <DisplayDetail /> */}
+                    <RenderGroup></RenderGroup>
+                    {/* <Map geoList={geoList} /> */}
+                    {/* <Mpp></Mpp> */}
                 </div>
             )}
 
@@ -29,5 +37,5 @@ const App = () => {
         </div>
     );
 };
-
 export default App;
+

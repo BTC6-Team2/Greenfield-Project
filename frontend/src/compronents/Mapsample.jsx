@@ -76,7 +76,8 @@ const Mpp = () => {
             lng: location.coords.longitude,
         });
         // console.log(currentPosition)
-        setMapKey(new Date().getTime());
+        setM
+         (new Date().getTime());
         placeData.forEach(
             (obj) =>
                 (obj.distance =

@@ -6,43 +6,44 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import DirectionsIcon from "@mui/icons-material/Directions";
-import Map from "./Map";
-import Mpp from "./Mapsample";
+
 const SearchBar = (props) => {
     const { setSearchWord } = props;
     const inputRef = useRef(null);
 
     return (
         <>
-            <Paper
-                component="form"
-                sx={{
-                    p: "2px 4px",
-                    display: "flex",
-                    alignItems: "center",
-                    width: 400,
-                }}
-            >
-                <InputBase
-                    inputRef={inputRef}
-                    id="inputText"
-                    sx={{ ml: 1, flex: 1 }}
-                    placeholder="調べたいゴミの名前を入力してください"
-                    inputProps={{ "aria-label": "search google maps" }}
-                />
-                <IconButton
-                    type="button"
-                    sx={{ p: "10px" }}
-                    aria-label="search"
-                    onClick={() => setSearchWord(inputRef.current.value)}
+            <div className="search-bar">
+                <Paper
+                    component="form"
+                    sx={{
+                        p: "2px 4px",
+                        display: "flex",
+                        alignItems: "center",
+                        width: 400,
+                    }}
                 >
-                    <SearchIcon />
-                </IconButton>
-                <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-            </Paper>
-            
-            <Map />
-            {/* <Mpp></Mpp> */}
+                    <InputBase
+                        inputRef={inputRef}
+                        id="inputText"
+                        sx={{ ml: 1, flex: 1 }}
+                        placeholder="調べたいゴミの名前を入力してください"
+                        inputProps={{ "aria-label": "search google maps" }}
+                    />
+                    <IconButton
+                        type="button"
+                        sx={{ p: "10px" }}
+                        aria-label="search"
+                        onClick={() => setSearchWord(inputRef.current.value)}
+                    >
+                        <SearchIcon />
+                    </IconButton>
+                    <Divider
+                        sx={{ height: 28, m: 0.5 }}
+                        orientation="vertical"
+                    />
+                </Paper>
+            </div>
         </>
     );
 };
