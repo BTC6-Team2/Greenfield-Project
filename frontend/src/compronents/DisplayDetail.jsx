@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import React, { useEffect, useState } from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-import Map from "./Map";
+import Map from './Map';
 
 const DisplayDetail = ({ trashId }) => {
     const [info, setInfo] = useState();
@@ -23,26 +23,29 @@ const DisplayDetail = ({ trashId }) => {
             .then((res) => res.json())
             // .then((res) => console.log([res]))
             // .then((res) => console.log(res.station))
-            .then((res) => setInfo(res))
+            .then((res) => {
+                setGeoList(res.station);
+                setInfo(res);
+            })
             .catch((err) => console.error(err));
         // console.log({info})
 
         // !trashidが更新されるたびに地図上に表示されるマップピンの位置を更新するようにする。(thenの中に。)
         // サンプルデータ
-        setGeoList([
-            {
-                id: 1,
-                lat: 34.964817,
-                lng: 137.181291,
-                name: "総合資源ステーション りすた稲熊",
-            },
-            {
-                id: 2,
-                lat: 34.954608,
-                lng: 137.172967,
-                name: "市役所（東立体駐車場・北側駐車場",
-            },
-        ]);
+        // setGeoList([
+        //     {
+        //         id: 1,
+        //         lat: 34.964817,
+        //         lng: 137.181291,
+        //         name: '総合資源ステーション りすた稲熊',
+        //     },
+        //     {
+        //         id: 2,
+        //         lat: 34.954608,
+        //         lng: 137.172967,
+        //         name: '市役所（東立体駐車場・北側駐車場',
+        //     },
+        // ]);
     }, [trashId]);
 
     return (
@@ -67,7 +70,7 @@ const DisplayDetail = ({ trashId }) => {
                                     <TableRow
                                         key={index}
                                         sx={{
-                                            "&:last-child td, &:last-child th":
+                                            '&:last-child td, &:last-child th':
                                                 {
                                                     border: 0,
                                                 },

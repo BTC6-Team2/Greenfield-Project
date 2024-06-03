@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import L from 'leaflet';
 import { icon } from 'leaflet';
 import defaultMarker from './icons/Default.png';
@@ -139,14 +139,16 @@ const Map = ({ geoList }) => {
             <MapContainer
                 key={mapKey}
                 center={currentPosition}
-                zoom={13}
-                scrollWheelZoom={false}
-                style={{ margin: '50px', height: '40vh', width: '60vw' }}
+                zoom={10}
+                scrollWheelZoom={true}
+                style={{ margin: '50px', height: '60vh', width: '60vw' }}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
                 />
+                <Circle center={currentPosition} radius={30000} />
                 {/* 現在地ピン */}
                 <Marker id="map" position={currentPosition} icon={DefaultIcon}>
                     <Popup>現在地</Popup>
@@ -154,15 +156,21 @@ const Map = ({ geoList }) => {
 
                 {/* ゴミ捨て場所を出力 */}
                 {geoList.length > 0
-                    ? geoList.map((item) => (
-                          <Marker
-                              key={item.id}
-                              position={item}
-                              icon={BrownIcon}
-                          >
-                              <Popup>{item.name}</Popup>
-                          </Marker>
-                      ))
+                    ? geoList.map((item) => {
+                          console.log(item);
+                          return (
+                              <Marker
+                                  key={item.stationName}
+                                  position={{
+                                      lat: item.stationLatitude,
+                                      lng: item.stationLongitude,
+                                  }}
+                                  icon={BrownIcon}
+                              >
+                                  <Popup>{item.stationName}</Popup>
+                              </Marker>
+                          );
+                      })
                     : null}
             </MapContainer>
         </div>
