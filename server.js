@@ -30,6 +30,19 @@ const setupServer = () => {
   app.use(express.json());
   // app.use("/", express.static(__dirname + "/frontend/dist"));
 
+  app.get("/api/stations", async (req,res) => {
+    const allStations = await knex
+    .distinct(
+      "address",
+      "day_time",
+      "station_name",
+      "latitude",
+      "longitude",
+    )
+    .from("station");
+    res.send(allStations)
+  })
+
   app.get("/api/items", async (req, res) => {
     // console.log("req.query.word: ", req.query.word);
     // if (!!req.query.word) {
@@ -55,11 +68,13 @@ const setupServer = () => {
           "type.type_name",
           "station.station_name",
           "station.address",
-          "station.day_time"
+          "station.day_time",
+          "station.latitude",
+          "station.longitude",
         )
         .from("item")
         .leftJoin("type", "item.type_id", "=", "type.id")
-        .leftJoin("station", "type.id", "=", "station.type_id")
+        .leftJoin("station", "item.type_id", "=", "station.type_id")
         .where("item.id", id)
         // .first()
         .then((res) => ({
@@ -69,7 +84,10 @@ const setupServer = () => {
             stationName: ele.station_name,
             stationAddress: ele.address,
             stationDayTime: ele.day_time,
+            stationLatitude: ele.latitude,
+            stationLongitude: ele.longitude
           })),
+          
         }));
       res.status(200).send(itemData);
     } catch (err) {
