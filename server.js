@@ -6,6 +6,7 @@ const path = require('path');
 const config = require('./knexfile');
 const environment = process.env.DATABASE_URL ? 'production' : 'development';
 const knex = require('knex')(config[environment]);
+console.log('environment', environment);
 
 // module.exports = knex(config[environment]);
 
