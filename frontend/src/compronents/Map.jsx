@@ -23,15 +23,41 @@ const BrownIcon = icon({
 
 // !====================================
 const Map = ({ geoList }) => {
+    // 現在地取得
+    const getCurrentPosition = () =>
+        new Promise((resolve, reject) =>
+            navigator.geolocation.getCurrentPosition(resolve, reject)
+        );
+
+    // キー設定 (時間を格納している)
+    const [mapKey, setMapKey] = useState(0);
     // 現在地情報
-    const [currentPosition, setCurrentPosition] = useState(null);
+    const [currentPosition, setCurrentPosition] = useState({ lat: 0, lng: 0 });
+    // 場所情報
+
+    // 初期処理
+    useEffect(() => {
+        moveCurrentPosition();
+    }, []);
+
+    // 現在地に移動
+    const moveCurrentPosition = async () => {
+        const location = await getCurrentPosition();
+        setCurrentPosition({
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
+        });
+        // キーを設定して、再表示
+        setMapKey(new Date().getTime());
+    };
+
     const isFirst = useRef(true);
 
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition((pos) => {
-            setCurrentPosition([pos.coords.latitude, pos.coords.longitude]);
-        });
-    }, []);
+    // useEffect(() => {
+    //     navigator.geolocation.getCurrentPosition((pos) => {
+    //         setCurrentPosition([pos.coords.latitude, pos.coords.longitude]);
+    //     });
+    // }, []);
 
     console.log('現在地の座標:', currentPosition);
     if (isFirst.current) {
@@ -54,7 +80,7 @@ const Map = ({ geoList }) => {
                         </Button> */}
                 </div>
                 <MapContainer
-                    // key={mapKey}
+                    key={mapKey}
                     center={currentPosition}
                     zoom={10}
                     scrollWheelZoom={true}
