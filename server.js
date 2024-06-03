@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const session = require('express-session');
 const path = require('path');
 const config = require('./knexfile');
 const environment = process.env.DATABASE_URL ? 'production' : 'development';
 const knex = require('knex')(config[environment]);
-const session = require('express-session');
 
 // module.exports = knex(config[environment]);
 
@@ -24,7 +24,7 @@ const setupServer = () => {
         })
     );
     // 特定のルートのルーターをappで機能させる
-    app.use('/signin', require('./routes/index'));
+    app.use('/', require('./routes/index'));
 
     app.get('/api/stations', async (req, res) => {
         const allStations = await knex
