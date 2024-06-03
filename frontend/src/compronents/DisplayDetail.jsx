@@ -21,31 +21,11 @@ const DisplayDetail = ({ trashId }) => {
         console.log(trashId);
         fetch(`/api/items/${trashId}`)
             .then((res) => res.json())
-            // .then((res) => console.log([res]))
-            // .then((res) => console.log(res.station))
             .then((res) => {
                 setGeoList(res.station);
                 setInfo(res);
             })
             .catch((err) => console.error(err));
-        // console.log({info})
-
-        // !trashidが更新されるたびに地図上に表示されるマップピンの位置を更新するようにする。(thenの中に。)
-        // サンプルデータ
-        // setGeoList([
-        //     {
-        //         id: 1,
-        //         lat: 34.964817,
-        //         lng: 137.181291,
-        //         name: '総合資源ステーション りすた稲熊',
-        //     },
-        //     {
-        //         id: 2,
-        //         lat: 34.954608,
-        //         lng: 137.172967,
-        //         name: '市役所（東立体駐車場・北側駐車場',
-        //     },
-        // ]);
     }, [trashId]);
 
     return (
