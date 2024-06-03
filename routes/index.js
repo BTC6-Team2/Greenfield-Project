@@ -61,14 +61,18 @@ router.get("/", (req, res) =>
 );
 // ログイン失敗時のルート
 router.get("/failure", (req, res) => {
-    console.log("aaa");
+    console.log("失敗ルート");
     console.log(req.session);
     res.send("Failure");
+
+    //-----------------失敗時だからログイんポイント
 });
 // ログイン成功時のルート
 router.get("/success", (req, res) => {
+    console.log("成功ルート");
     console.log(req.session);
     res.redirect("/");
+    //----------------成功時のエンドポイントHome?
 });
 
 // reqをコンソール

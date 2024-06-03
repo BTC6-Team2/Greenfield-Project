@@ -12,7 +12,7 @@ const knex = require("knex")(config[environment]);
 const setupServer = () => {
 
   //----------------------------------
-  // app.set("view engine", "hbs");
+  app.set("view engine", "hbs");
   app.use(express.urlencoded({ extended: false }));
   // これは何？？
   app.use(
@@ -28,7 +28,7 @@ const setupServer = () => {
 
   app.use(cors());
   app.use(express.json());
-  app.use("/", express.static(__dirname + "/frontend/dist"));
+  // app.use("/", express.static(__dirname + "/frontend/dist"));
 
   app.get("/api/items", async (req, res) => {
     // console.log("req.query.word: ", req.query.word);
