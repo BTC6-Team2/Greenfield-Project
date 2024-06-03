@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const session = require("express-session");
+const path = require("path");
 
 const config = require("./knexfile");
 const environment = process.env.DATABASE_URL ? "production" : "development";
@@ -9,9 +11,24 @@ const knex = require("knex")(config[environment]);
 // module.exports = knex(config[environment]);
 
 const setupServer = () => {
+  //----------------------------------
+  app.use("/signin", express.static(__dirname + "/frontend/dist"));
+  app.use(express.urlencoded({ extended: false }));
+  // これは何？？
+  app.use(
+    session({
+      secret: "keyboard cat", //秘密鍵
+      resave: true,
+      saveUninitialized: false,
+    })
+  );
+  // 特定のルートのルーターをappで機能させる
+  app.use("/signin", require("./routes/index"));
+  //----------------------------------
+
   app.use(cors());
   app.use(express.json());
-  app.use("/", express.static(__dirname + "/frontend/dist"));
+  // app.use("/", express.static(__dirname + "/frontend/dist"));
 
   app.get("/api/stations", async (req,res) => {
     const allStations = await knex
