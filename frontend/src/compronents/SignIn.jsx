@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import './icons/github.jpeg';
+import './signin.css';
 
 function Copyright(props) {
     return (
@@ -73,8 +75,20 @@ export default function SignIn() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
+                    <Avatar
+                        sx={{
+                            m: 1,
+                            bgcolor: 'access',
+                            width: '80px',
+                            height: '80px',
+                        }}
+                    >
+                        {/* <LockOutlinedIcon /> */}
+                        <img
+                            src="./images/kabegami.gif"
+                            alt="X"
+                            width={'100px'}
+                        />
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
@@ -109,11 +123,20 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
+                        <nav className="site-nav">
+                            <img src="./images/X.jpg" alt="X" />
+                            <a href="/auth/github">
+                                <img src="./images/github.png" alt="github" />
+                            </a>
+                            <img src="./images/facebook.png" alt="facebook" />
+                            <img src="./images/yahoo.png" alt="yahoo" />
+                            <img src="./images/line.png" alt="line" />
+                        </nav>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mb: 2 }}
                             // onClick={() =>}
                         >
                             Sign In

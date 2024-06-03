@@ -9,12 +9,6 @@ import panToRee from './icons/kabegami.gif';
 // mui
 import Button from '@mui/material/Button';
 
-// 現在地取得
-const getCurrentPosition = () =>
-    new Promise((resolve, reject) =>
-        navigator.geolocation.getCurrentPosition(resolve, reject)
-    );
-
 const DefaultIcon = icon({
     iconUrl: defaultMarker,
     iconSize: [20, 32],
@@ -29,27 +23,20 @@ const BrownIcon = icon({
 
 // !====================================
 const Map = ({ geoList }) => {
-    const isFirst = useRef(true);
-
     // 現在地情報
     const [currentPosition, setCurrentPosition] = useState(null);
+    const isFirst = useRef(true);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((pos) => {
             setCurrentPosition([pos.coords.latitude, pos.coords.longitude]);
         });
     }, []);
-    console.log('現在地の座標:', currentPosition);
 
+    console.log('現在地の座標:', currentPosition);
     if (isFirst.current) {
-        console.log('初回レンダリング');
         isFirst.current = false;
-        return (
-            <>
-                <h2>Loding...</h2>;
-                <img src={panToRee} alt="パン＆リー" />
-            </>
-        );
+        return <h2>ちょっと待ってね</h2>;
     } else {
         return (
             // <div style={{ height: "500px", width: "400px", margin: "10px" }}>
@@ -63,8 +50,8 @@ const Map = ({ geoList }) => {
                         現在地
                     </Button>
                     {/* <Button variant="outlined" onClick={() => )}>
-                        検索
-                    </Button> */}
+                            検索
+                        </Button> */}
                 </div>
                 <MapContainer
                     // key={mapKey}
