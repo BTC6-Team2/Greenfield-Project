@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const session = require("express-session");
 
 const config = require("./knexfile");
 const environment = process.env.DATABASE_URL ? "production" : "development";
@@ -9,6 +10,22 @@ const knex = require("knex")(config[environment]);
 // module.exports = knex(config[environment]);
 
 const setupServer = () => {
+
+  //----------------------------------
+  // app.set("view engine", "hbs");
+  app.use(express.urlencoded({ extended: false }));
+  // これは何？？
+  app.use(
+    session({
+      secret: "keyboard cat", //秘密鍵
+      resave: true,
+      saveUninitialized: false,
+    })
+  );
+  // 特定のルートのルーターをappで機能させる
+  app.use("/", require("./routes/index"));
+  //----------------------------------
+
   app.use(cors());
   app.use(express.json());
   app.use("/", express.static(__dirname + "/frontend/dist"));
