@@ -33,14 +33,9 @@ const Map = ({ geoList }) => {
     const [mapKey, setMapKey] = useState(0);
     // 現在地情報
     const [currentPosition, setCurrentPosition] = useState({ lat: 0, lng: 0 });
-    // 場所情報
-    const [placeData, setPlaceData] = useState([]);
 
-    // 初期処理
-    const position = [35, 135];
     useEffect(() => {
         moveCurrentPosition();
-        setPlaceData([...tempPlaceData1]);
     }, []);
 
     // 現在地に移動
@@ -55,16 +50,6 @@ const Map = ({ geoList }) => {
         setMapKey(new Date().getTime());
     };
 
-    // ここで
-    // =======検索処理==========
-    const getLocationList = () => {
-        // データ設定
-        setPlaceData([...tempPlaceData2]);
-        // 本当はfetchとかしてデータ取ってくる
-        // const responce = await axios.get("http://localshot:8000/api/getLocation/...");
-        // setPlaceData([...responce]);
-    };
-
     return (
         // <div style={{ height: "500px", width: "400px", margin: "10px" }}>
         <div>
@@ -76,9 +61,9 @@ const Map = ({ geoList }) => {
                 >
                     現在地
                 </Button>
-                <Button variant="outlined" onClick={() => getLocationList()}>
+                {/* <Button variant="outlined" onClick={() => )}>
                     検索
-                </Button>
+                </Button> */}
             </div>
             <MapContainer
                 key={mapKey}
