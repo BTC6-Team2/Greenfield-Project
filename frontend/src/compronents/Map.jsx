@@ -71,7 +71,7 @@ const Map = ({ geoList }) => {
                 <div>
                     <Button
                         variant="outlined"
-                        // onClick={() => moveCurrentPosition()}
+                        onClick={() => moveCurrentPosition()}
                     >
                         現在地
                     </Button>
@@ -84,7 +84,11 @@ const Map = ({ geoList }) => {
                     center={currentPosition}
                     zoom={10}
                     scrollWheelZoom={true}
-                    style={{ margin: '50px', height: '60vh', width: '60vw' }}
+                    style={{
+                        margin: '20px auto',
+                        height: '60vh',
+                        width: '60vw',
+                    }}
                 >
                     <TileLayer
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

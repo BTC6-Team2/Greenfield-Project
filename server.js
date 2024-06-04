@@ -101,7 +101,9 @@ const setupServer = () => {
 const server = setupServer();
 const PORT = process.env.PORT || 3000;
 module.exports = { setupServer };
-app.listen(PORT, () => console.log(`listening on port : ${PORT}`));
+app.listen(PORT, () =>
+    console.log(`listening on port : http://localhost:${PORT}`)
+);
 
 // 品目:
 // 分類:
