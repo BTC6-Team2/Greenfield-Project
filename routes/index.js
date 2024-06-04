@@ -7,69 +7,68 @@ const router = express.Router();
 
 // passportとpassportの認証戦略を設定
 const passport = require("passport");
+const { connect } = require("http2");
 
 require("dotenv").config({
-  path: "./.env",
+    path: "./.env",
 });
 //-------------Github 下準備------------------------
 const GitHubStrategy = require("passport-github2").Strategy;
 const siteURL =
-  environment === "production"
-    ? "https://greenfield-project-6urk.onrender.com"
-    : "http://localhost:3000";
+    environment === "production"
+        ? "https://greenfield-project-6urk.onrender.com"
+        : "http://localhost:3000";
 //-------------Github　strategy------------------------
 
 passport.use(
-  new GitHubStrategy(
-    {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: `${siteURL}/auth/github/callback`,
-    },
-    function (accessToken, refreshToken, profile, done) {
-      check = profile;
-      if (profile) {
-        user = profile;
-        return done(null, user);
-      } else {
-        return done(null, false);
-      }
-    }
-  )
+    new GitHubStrategy(
+        {
+            clientID: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            callbackURL: `${siteURL}/auth/github/callback`,
+        },
+        function (accessToken, refreshToken, profile, done) {
+            check = profile;
+            if (profile) {
+                user = profile;
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
+        }
+    )
 );
 //-------------Google 下準備------------------------
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 //-------------Google　strategy------------------------
 passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `${siteURL}/auth/google/callback`,
-    },
-    function (accessToken, refreshToken, profile, done) {
-      check = profile;
-      if (profile) {
-        user = profile;
-        return done(null, user);
-      } else {
-        return done(null, false);
-      }
-    }
-  )
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: `${siteURL}/auth/google/callback`,
+        },
+        function (accessToken, refreshToken, profile, done) {
+            check = profile;
+            if (profile) {
+                user = profile;
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
+        }
+    )
 );
 
 // シリアライズ処理 第２引数がセッションに保存される値を指定している。今回はuser object
 passport.serializeUser((user, done) => {
-
-  console.log("Serialize ...");
-  done(null, user);
+    console.log("Serialize ...");
+    done(null, user);
 });
 // デシリアライズ処理
 passport.deserializeUser((user, done) => {
-  console.log("Deserialize ...");
-  done(null, user);
-
+    console.log("Deserialize ...");
+    done(null, user);
 });
 
 //   passportの初期化ミドルウェアをルーターに設定 passportがリクエストに対して動作する。
@@ -80,61 +79,52 @@ router.use(passport.session());
 // テンプレートエンジンを使ってビュー(HTMLファイル)をレンファリングし、クライアントに返す。
 // /にgetリクエストが来た時、indexテンプレートをレンダリングして返す。
 
-
 router.get("/signin", (req, res) =>
-  res.render(path.join(__dirname, "../frontend/dist"))
+    res.render(path.join(__dirname, "../frontend/dist"))
 );
 
 //--------------------Githubの場合-------------------------
 router.get(
-  "/auth/github",
-  passport.authenticate("github", { scope: ["user:email"] })
-
+    "/auth/github",
+    passport.authenticate("github", { scope: ["user:email"] })
 );
 
 router.get(
-
-  "/auth/github/callback",
-  passport.authenticate("github", {
-    failureRedirect: "/failure",
-    successRedirect: "/success",
-  })
-
+    "/auth/github/callback",
+    passport.authenticate("github", {
+        failureRedirect: "/failure",
+        successRedirect: "/success",
+    })
 );
 
 //--------------------Googleの場合-------------------------
 router.get(
-
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
-
+    "/auth/google",
+    passport.authenticate("google", { scope: ["profile"] })
 );
 
 router.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/failure",
-    successRedirect: "/success",
-  })
+    "/auth/google/callback",
+    passport.authenticate("google", {
+        failureRedirect: "/failure",
+        successRedirect: "/success",
+    })
 );
 
 // ログイン失敗時のルート
 router.get("/failure", (req, res) => {
-
-
-  console.log("失敗ルート");
-  console.log(req.session);
-  //   res.send("Failure");
-  res.redirect("/signin");
-  //-----------------失敗時のエンドポイント
+    console.log("失敗ルート");
+    console.log(req.session);
+    //   res.send("Failure");
+    res.redirect("/signin");
+    //-----------------失敗時のエンドポイント
 });
 // // ログイン成功時のルート
 router.get("/success", (req, res) => {
-  console.log("成功ルート");
-  console.log(req.session);
-  res.redirect("/items");
-  //----------------成功時のエンドポイント
-
+    console.log("成功ルート");
+    console.log("あいうえお ", req.session.passport.user);
+    res.redirect("/items");
+    //----------------成功時のエンドポイント
 });
 
 // reqをコンソール
@@ -145,11 +135,28 @@ router.get("/success", (req, res) => {
 
 // 最後にユーザをコンソールし、Succesと表示する。
 
-router.get('/logout', function(req, res){
-  req.logout(function(err) {
-    if (err) { return next(err); }
-    res.redirect('/');
-  });
-
+// router.get("/logout", function (req, res) {
+//     req.logout(function (err) {
+//         if (err) {
+//             return next(err);
+//         }
+//         req.session.destroy();
+//         res.redirect("/");
+//     });
+// });
+router.get("/logout", function (req, res, next) {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+    });
+    // req.session.passport.user.destroy((err) => {
+    //     if (err) {
+    //         return next(err);
+    //     }
+    //     res.clearCookie("connect.sid");
+    // });
+    req.session.passport.user = undefined;
+    res.redirect("/");
 });
 module.exports = router;
