@@ -156,7 +156,7 @@ GOOGLE_CLIENT_SECRET : Google のシークレットキーを取得して設定�
 
 ## テーブル一覧
 
-# station Table
+### station Table
 ```
 Table station  {
     id id [pk]
@@ -169,7 +169,7 @@ Table station  {
 }
 ```
 
-# item Table
+### item Table
 
 ```
 Table item {
@@ -180,7 +180,7 @@ Table item {
 }
 ```
 
-# type Table
+### type Table
 
 ```
 Table type {
