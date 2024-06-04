@@ -104,13 +104,14 @@ Greenfield-Project
 
 ## 開発環境
 ```
--JavaScript ver:1.88.1
--Render
--PostSQL ver:8.11.5
--knex ver:3.1.0
--express ver:4.19.2
--Passport-github2 ver:0.1.12
--mocha ver:10.4.0"
+・JavaScript             ver:1.88.1
+・Render
+・PostSQL                ver:8.11.5
+・knex                   ver:3.1.0
+・express                ver:4.19.2
+・Passport-github2       ver:0.1.12
+・mocha                  ver:10.4.0"
+・Leaflet                
 ```
 ## 環境設定
 
