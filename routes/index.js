@@ -18,6 +18,7 @@ const siteURL =
     ? "https://greenfield-project-6urk.onrender.com"
     : "http://localhost:3000";
 //-------------Github　strategy------------------------
+
 passport.use(
   new GitHubStrategy(
     {
@@ -60,6 +61,7 @@ passport.use(
 
 // シリアライズ処理 第２引数がセッションに保存される値を指定している。今回はuser object
 passport.serializeUser((user, done) => {
+
   console.log("Serialize ...");
   done(null, user);
 });
@@ -67,6 +69,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   console.log("Deserialize ...");
   done(null, user);
+
 });
 
 //   passportの初期化ミドルウェアをルーターに設定 passportがリクエストに対して動作する。
@@ -77,6 +80,7 @@ router.use(passport.session());
 // テンプレートエンジンを使ってビュー(HTMLファイル)をレンファリングし、クライアントに返す。
 // /にgetリクエストが来た時、indexテンプレートをレンダリングして返す。
 
+
 router.get("/signin", (req, res) =>
   res.render(path.join(__dirname, "../frontend/dist"))
 );
@@ -85,20 +89,25 @@ router.get("/signin", (req, res) =>
 router.get(
   "/auth/github",
   passport.authenticate("github", { scope: ["user:email"] })
+
 );
 
 router.get(
+
   "/auth/github/callback",
   passport.authenticate("github", {
     failureRedirect: "/failure",
     successRedirect: "/success",
   })
+
 );
 
 //--------------------Googleの場合-------------------------
 router.get(
+
   "/auth/google",
   passport.authenticate("google", { scope: ["profile"] })
+
 );
 
 router.get(
@@ -111,6 +120,8 @@ router.get(
 
 // ログイン失敗時のルート
 router.get("/failure", (req, res) => {
+
+
   console.log("失敗ルート");
   console.log(req.session);
   //   res.send("Failure");
@@ -123,6 +134,7 @@ router.get("/success", (req, res) => {
   console.log(req.session);
   res.redirect("/items");
   //----------------成功時のエンドポイント
+
 });
 
 // reqをコンソール
@@ -138,5 +150,6 @@ router.get('/logout', function(req, res){
     if (err) { return next(err); }
     res.redirect('/');
   });
+
 });
 module.exports = router;
