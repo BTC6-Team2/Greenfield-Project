@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import SignIn from "./compronents/SignIn";
 import Map from "./compronents/Map";
-// ずっかさん試し
-import Mpp from "./compronents/Mapsample";
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { SearchBox } from "./compronents/SeachBox";
 import { NoMatch } from "./compronents/NoMatch";
+
 
 const App = () => {
     const [searchWord, setSearchWord] = useState("");
