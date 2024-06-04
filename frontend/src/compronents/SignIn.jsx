@@ -128,7 +128,9 @@ export default function SignIn() {
                             <a href="/auth/github">
                                 <img src="./images/github.png" alt="github" />
                             </a>
+                            <a href="/auth/github">
                             <img src="./images/facebook.png" alt="facebook" />
+                            </a>
                             <img src="./images/yahoo.png" alt="yahoo" />
                             <img src="./images/line.png" alt="line" />
                         </nav>
