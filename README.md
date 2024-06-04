@@ -18,90 +18,89 @@
 自治体によって様々なゴミ捨てルール、ゴミ捨て場所を検索できるアプリを実装します
 
 ## ファイル構成
-
-.
-├── Greenfield-Project
-├── ├── db
-├── │   ├── migrations
-├── │   │   ├── 20240529081730_item_table.js
-├── │   │   ├── 20240529081841_type_table.js
-├── │   │   ├── 20240529081903_station_table.js
-├── │   │   └── 20240529103126_item_table_add_id.js
-├── │   └── seeds
-├── │       ├── 001-type.js
-├── │       ├── 002-item.js
-├── │       └── 003-station.js
-├── ├── frontend
-├── │   ├── public
-├── │   │   ├── images
-├── │   │   │   ├── facebook.png
-├── │   │   │   ├── gabage.png
-├── │   │   │   ├── github.jpeg
-├── │   │   │   ├── github.png
-├── │   │   │   ├── kabegami.gif
-├── │   │   │   ├── life.png
-├── │   │   │   ├── line.png
-├── │   │   │   ├── okazaki-city.png
-├── │   │   │   ├── what-town.png
-├── │   │   │   ├── X.jpg
-├── │   │   │   └── yahoo.png
-├── │   │   └── vite.svg
-├── │   ├── src
-├── │   │   ├── assets
-├── │   │   │   └── react.svg
-├── │   │   ├── compronents
-├── │   │   │   ├── icons
-├── │   │   │   │   ├── Aqua.png
-├── │   │   │   │   ├── Aquamarine.png
-├── │   │   │   │   ├── Brown.png
-├── │   │   │   │   ├── Default.png
-├── │   │   │   │   ├── facebook.png
-├── │   │   │   │   ├── github.jpeg
-├── │   │   │   │   ├── images.png
-├── │   │   │   │   ├── kabegami.gif
-├── │   │   │   │   ├── line.png
-├── │   │   │   │   ├── X.jpg
-├── │   │   │   │   └── yahoo.png
-├── │   │   │   ├── Banner.css
-├── │   │   │   ├── BannerLeft.jsx
-├── │   │   │   ├── BannerRight.jsx
-├── │   │   │   ├── DisplayDetail.jsx
-├── │   │   │   ├── DisplayResult.jsx
-├── │   │   │   ├── Header.css
-├── │   │   │   ├── Header.jsx
-├── │   │   │   ├── Map.jsx
-├── │   │   │   ├── Mapsample.jsx
-├── │   │   │   ├── NoMatch.jsx
-├── │   │   │   ├── SearchBar.jsx
-├── │   │   │   ├── SearchBox.css
-├── │   │   │   ├── SearchBox.jsx
-├── │   │   │   ├── signin.css
-├── │   │   │   └── SignIn.jsx
-├── │   │   ├── App.css
-├── │   │   ├── App.jsx
-├── │   │   ├── index.css
-├── │   │   └── main.jsx
-├── │   ├── .eslintrc.cjs
-├── │   ├── .gitignore
-├── │   ├── index.html
-├── │   ├── package-lock.json
-├── │   ├── package.json
-├── │   ├── README.md
-├── │   └── vite.config.js
-├── ├── routes
-├── │   └── index.js
-├── ├── test
-├── │   └── _server.js
-├── ├── .gitignore
-├── ├── knexfile.js
-├── ├── life.png
-├── ├── okazaki-city.png
-├── ├── package-lock.json
-├── ├── package.json
-├── ├── README.md
-├── ├── server.js
-└── └── what-town.png
-
+```
+Greenfield-Project
+├── db
+│   ├── migrations
+│   │   ├── 20240529081730_item_table.js
+│   │   ├── 20240529081841_type_table.js
+│   │   ├── 20240529081903_station_table.js
+│   │   └── 20240529103126_item_table_add_id.js
+│   └── seeds
+│       ├── 001-type.js
+│       ├── 002-item.js
+│       └── 003-station.js
+├── frontend
+│   ├── public
+│   │   ├── images
+│   │   │   ├── facebook.png
+│   │   │   ├── gabage.png
+│   │   │   ├── github.jpeg
+│   │   │   ├── github.png
+│   │   │   ├── kabegami.gif
+│   │   │   ├── life.png
+│   │   │   ├── line.png
+│   │   │   ├── okazaki-city.png
+│   │   │   ├── what-town.png
+│   │   │   ├── X.jpg
+│   │   │   └── yahoo.png
+│   │   └── vite.svg
+│   ├── src
+│   │   ├── assets
+│   │   │   └── react.svg
+│   │   ├── compronents
+│   │   │   ├── icons
+│   │   │   │   ├── Aqua.png
+│   │   │   │   ├── Aquamarine.png
+│   │   │   │   ├── Brown.png
+│   │   │   │   ├── Default.png
+│   │   │   │   ├── facebook.png
+│   │   │   │   ├── github.jpeg
+│   │   │   │   ├── images.png
+│   │   │   │   ├── kabegami.gif
+│   │   │   │   ├── line.png
+│   │   │   │   ├── X.jpg
+│   │   │   │   └── yahoo.png
+│   │   │   ├── Banner.css
+│   │   │   ├── BannerLeft.jsx
+│   │   │   ├── BannerRight.jsx
+│   │   │   ├── DisplayDetail.jsx
+│   │   │   ├── DisplayResult.jsx
+│   │   │   ├── Header.css
+│   │   │   ├── Header.jsx
+│   │   │   ├── Map.jsx
+│   │   │   ├── Mapsample.jsx
+│   │   │   ├── NoMatch.jsx
+│   │   │   ├── SearchBar.jsx
+│   │   │   ├── SearchBox.css
+│   │   │   ├── SearchBox.jsx
+│   │   │   ├── signin.css
+│   │   │   └── SignIn.jsx
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .eslintrc.cjs
+│   ├── .gitignore
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── README.md
+│   └── vite.config.js
+├── routes
+│   └── index.js
+├── test
+│   └── _server.js
+├── .gitignore
+├── knexfile.js
+├── life.png
+├── okazaki-city.png
+├── package-lock.json
+├── package.json
+├── README.md
+├── server.js
+└── what-town.png
+```
 
 ## 開発環境
 
