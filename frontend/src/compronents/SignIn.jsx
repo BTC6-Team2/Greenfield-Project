@@ -137,10 +137,12 @@ export default function SignIn() {
                             <a href="/auth/github">
                                 <FaGithub className="icon" />
                             </a>
+
                             <RiTwitterXLine className="icon" />
                             <FaFacebook className="icon" />
                             <TbBrandYahoo className="icon" />
                             <FaLine className="icon" />
+
                         </nav>
                         <Button
                             type="submit"
