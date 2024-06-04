@@ -10,6 +10,20 @@ console.log("environment", environment);
 
 // module.exports = knex(config[environment]);
 
+// ======曖昧検索用helper============
+function kanaToHira(str) {
+    return str.replace(/[\u30a1-\u30f6]/g, function (match) {
+        var chr = match.charCodeAt(0) - 0x60;
+        return String.fromCharCode(chr);
+    });
+}
+function hiraToKana(str) {
+    return str.replace(/[\u3041-\u3096]/g, function (match) {
+        var chr = match.charCodeAt(0) + 0x60;
+        return String.fromCharCode(chr);
+    });
+}
+// =================================
 const setupServer = () => {
     app.use(cors());
     app.use(express.json());
@@ -44,11 +58,28 @@ const setupServer = () => {
         // console.log("req.query.word: ", req.query.word);
         // if (!!req.query.word) {
         const searchWord = req.query.word;
-        console.log("searchWord: ", searchWord);
+        const regex = /^[ぁ-ん]/u;
+        const regex2 = /^[ァ-ヴ]/u;
+        let searchWordHira;
+        let searchWordKana;
+
+        if (regex.test(searchWord)) {
+            searchWordHira = searchWord;
+            searchWordKana = hiraToKana(searchWord);
+        } else if (regex2.test(searchWord)) {
+            searchWordKana = searchWord;
+            searchWordHira = kanaToHira(searchWord);
+        } else {
+            searchWordKana = searchWord;
+            searchWordHira = searchWord;
+        }
+
         const likeNameItems = await knex
             .select({ id: "id", itemName: "item_name" })
             .from("item")
-            .whereLike("item_name", `%${searchWord}%`);
+            // .whereLike("item_name", `%${searchWord}%`);
+            .whereLike("item_name", `%${searchWordHira}%`)
+            .orWhereLike("item_name", `%${searchWordKana}%`);
         if (likeNameItems.length) {
             return res.status(200).send(likeNameItems);
         }
