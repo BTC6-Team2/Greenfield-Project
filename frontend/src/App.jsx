@@ -3,9 +3,8 @@ import SignIn from "./compronents/SignIn";
 import Map from "./compronents/Map";
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { SearchBox } from "./compronents/SeachBox";
+import { SearchBox } from "./compronents/SearchBox";
 import { NoMatch } from "./compronents/NoMatch";
-
 
 const App = () => {
     const [searchWord, setSearchWord] = useState("");

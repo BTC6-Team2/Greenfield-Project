@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
+import "./Header.css";
 
 const Header = () => {
     const logout = () => {
@@ -9,7 +10,9 @@ const Header = () => {
     };
     return (
         <header className="header">
+            <div className="empty"></div>
             <h2>ごみ出しアプリ</h2>
+
             <div className="logout">
                 {/* <button onClick={logout}>Logout</button> */}
                 <button>

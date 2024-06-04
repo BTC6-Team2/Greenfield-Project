@@ -1,0 +1,17 @@
+.header {
+    font-size: 2rem;
+    background-color: black;
+    color: aliceblue;
+    width: 100vws;
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 0 2%;
+    /* googlefont */
+    font-family: "Yuji Mai", serif;
+    font-weight: 400;
+    font-style: normal;
+
+    /*  */
+    display: flex;
+    justify-content: space-between;
+}
