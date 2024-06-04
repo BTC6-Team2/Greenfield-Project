@@ -140,6 +140,7 @@ npm run build を実施
 <a id="環境変数"></a>
 
 ## 環境変数
+
 ```
 DB_USER : user
 DB_NAME : garbage_station
