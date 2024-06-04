@@ -131,7 +131,7 @@ npm run build を実施
 フロントエンド：パッケージインストール、ビルド実行
 
 ## 環境変数
-
+```
 DB_USER : user
 DB_NAME : garbage_station
 DATABASE_URL : render/innerURL
@@ -140,7 +140,7 @@ GITHUB_CLIENT_ID : git のクライアント ID を取得して設定してく�
 GITHUB_CLIENT_SECRET : git のシークレットキーを取得して設定してください
 GOOGLE_CLIENT_ID : Google のクライアント ID を取得して設定してください
 GOOGLE_CLIENT_SECRET : Google のシークレットキーを取得して設定してください
-
+```
 ## 仕様
 
 ## 開発者
