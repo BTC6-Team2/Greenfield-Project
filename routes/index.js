@@ -1,26 +1,26 @@
-const express = require('express');
-const path = require('path');
-const environment = process.env.DATABASE_URL ? 'production' : 'development';
+const express = require("express");
+const path = require("path");
+const environment = process.env.DATABASE_URL ? "production" : "development";
 
 // 特定のルートを管理する者らしい
 const router = express.Router();
 
 // passportとpassportの認証戦略を設定
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
 //-------------Github------------------------
-require('dotenv').config({
-    path: './.env',
+require("dotenv").config({
+    path: "./.env",
 });
-const GitHubStrategy = require('passport-github2').Strategy;
+const GitHubStrategy = require("passport-github2").Strategy;
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 const siteURL =
-    environment === 'production'
-        ? 'https://greenfield-project-6urk.onrender.com'
-        : 'http://localhost:3000';
-console.log('ID:', GITHUB_CLIENT_ID);
+    environment === "production"
+        ? "https://greenfield-project-6urk.onrender.com"
+        : "http://localhost:3000";
+console.log("ID:", GITHUB_CLIENT_ID);
 //-------------Github------------------------
 
 // const User1 = {
@@ -77,12 +77,12 @@ passport.use(
 
 // シリアライズ処理 第２引数がセッションに保存される値を指定している。今回はuser object
 passport.serializeUser((user, done) => {
-    console.log('Serialize ...');
+    console.log("Serialize ...");
     done(null, user);
 });
 // デシリアライズ処理
 passport.deserializeUser((user, done) => {
-    console.log('Deserialize ...');
+    console.log("Deserialize ...");
     done(null, user);
 });
 
@@ -97,40 +97,40 @@ router.use(passport.session());
 // router.get("/", (req, res) =>
 //   res.render(path.join(__dirname, "../views/index"), { user: req.user })
 // );
-router.get('/signin', (req, res) =>
-    res.render(path.join(__dirname, '../frontend/dist'))
+router.get("/signin", (req, res) =>
+    res.render(path.join(__dirname, "../frontend/dist"))
 );
 
 //--------------------Githubの場合トライ-------------------------
 router.get(
-    '/auth/github',
-    passport.authenticate('github', { scope: ['user:email'] })
+    "/auth/github",
+    passport.authenticate("github", { scope: ["user:email"] })
 );
 
 router.get(
-    '/auth/github/callback',
-    passport.authenticate('github', {
-        failureRedirect: '/failure',
-        successRedirect: '/success',
+    "/auth/github/callback",
+    passport.authenticate("github", {
+        failureRedirect: "/failure",
+        successRedirect: "/success",
     })
 );
 
 //--------------------Githubの場合トライ-------------------------
 
 // ログイン失敗時のルート
-router.get('/failure', (req, res) => {
-    console.log('失敗ルート');
+router.get("/failure", (req, res) => {
+    console.log("失敗ルート");
     console.log(req.session);
     //   res.send("Failure");
-    res.redirect('/signin');
+    res.redirect("/signin");
 
     //-----------------失敗時だからログイんポイント
 });
 // // ログイン成功時のルート
-router.get('/success', (req, res) => {
-    console.log('成功ルート');
+router.get("/success", (req, res) => {
+    console.log("成功ルート");
     console.log(req.session);
-    res.redirect('/items');
+    res.redirect("/items");
     //----------------成功時のエンドポイントHome?
 });
 
@@ -149,9 +149,19 @@ router.get('/success', (req, res) => {
 //     successRedirect: "/success",
 //   })
 // );
-router.post('/logout', (req, res) => {
-    // logoutするとセッションがクリアにされる。
-    req.session.passport.user = undefined;
-    res.redirect('/signin');
+// router.get("/logout", (req, res) => {
+// logoutするとセッションがクリアにされる。
+// req.session.passport.user = undefined;
+//     console.log("logoutにgetできてるか？");
+//     // res.redirect("/signin");
+// });
+
+router.get("/logout", function (req, res) {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/");
+    });
 });
 module.exports = router;
