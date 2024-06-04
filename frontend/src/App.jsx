@@ -1,20 +1,37 @@
-import React, { useState } from "react";
-import Header from "./compronents/Header";
-import SearchBar from "./compronents/SearchBar";
-import DisplayResult from "./compronents/DisplayResult";
-import DisplayDetail from "./compronents/DisplayDetail";
+import React, { useState } from 'react';
+import SignIn from './compronents/SignIn';
+import Map from './compronents/Map';
+// ずっかさん試し
+import Mpp from './compronents/Mapsample';
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import { SearchBox } from './compronents/SeachBox';
+import { NoMatch } from './compronents/NoMatch';
 
 const App = () => {
-  const [searchWord, setSearchWord] = useState("");
+    const [searchWord, setSearchWord] = useState('');
 
-  return (
-    <div>
-      <Header />
-      <SearchBar setSearchWord={setSearchWord} />
-      <DisplayResult searchWord={searchWord} />
-      {/* <DisplayDetail /> */}
-    </div>
-  );
+    return (
+        <div>
+            <Routes>
+                <Route path="/signin" element={<SignIn />} />
+                <Route
+                    path="/items"
+                    element={
+                        <SearchBox
+                            setSearchWord={setSearchWord}
+                            searchWord={searchWord}
+                        />
+                    }
+                />
+                <Route path="*" element={<NoMatch />} />
+
+                {/* <Header />
+            <SearchBar setSearchWord={setSearchWord} />
+            <DisplayResult searchWord={searchWord} />
+            <DisplayDetail /> */}
+            </Routes>
+        </div>
+    );
 };
-
 export default App;
