@@ -16,6 +16,7 @@ const SearchBar = (props) => {
             <div className="search-bar">
                 <Paper
                     component="form"
+                    elevation={20}
                     sx={{
                         p: "2px 4px",
                         display: "flex",
