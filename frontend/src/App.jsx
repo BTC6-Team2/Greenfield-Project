@@ -5,7 +5,7 @@ import Map from './compronents/Map';
 import Mpp from './compronents/Mapsample';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import { SearchBox } from './compronents/SeachBox';
+import { SearchBox } from './compronents/SearchBox';
 import { NoMatch } from './compronents/NoMatch';
 
 const App = () => {
