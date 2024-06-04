@@ -8,6 +8,13 @@ const router = express.Router();
 // passportとpassportの認証戦略を設定
 const passport = require("passport");
 
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/signin");
+}
+
 require("dotenv").config({
   path: "./.env",
 });
@@ -81,9 +88,6 @@ router.use(passport.session());
 // /にgetリクエストが来た時、indexテンプレートをレンダリングして返す。
 
 
-router.get("/signin", (req, res) =>
-  res.render(path.join(__dirname, "../frontend/dist"))
-);
 
 //--------------------Githubの場合-------------------------
 router.get(
@@ -117,6 +121,13 @@ router.get(
     successRedirect: "/success",
   })
 );
+
+router.get("/items", checkAuthenticated, (req, res,next) => {
+  if(req.isAuthenticated()){
+    return next();
+  }
+  res.redirect("/");
+});
 
 // ログイン失敗時のルート
 router.get("/failure", (req, res) => {

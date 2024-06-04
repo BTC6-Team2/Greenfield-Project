@@ -27,8 +27,9 @@ function hiraToKana(str) {
 const setupServer = () => {
     app.use(cors());
     app.use(express.json());
-    app.use("/", express.static(__dirname + "/frontend/dist"));
-    app.use("/signin", express.static(__dirname + "/frontend/dist"));
+    app.use("/", express.static(__dirname + "/frontend/dist",{
+        redirect:false
+    }));
     app.use(express.urlencoded({ extended: false }));
     // これは何？？
     app.use(
