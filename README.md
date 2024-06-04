@@ -205,4 +205,4 @@ Table type {
 npm run dev 　を実施
 localhost:3000 にアクセスして、アプリ画面が立ち上がることを確認してください
 
-
+![gif](https://img.gifmagazine.net/gifmagazine/images/4334877/original.mp4)
