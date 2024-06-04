@@ -1,19 +1,26 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import './icons/github.jpeg';
-import './signin.css';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import "./icons/github.jpeg";
+import "./signin.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { RiTwitterXLine } from "react-icons/ri";
+import { FaGithub, FaLine } from "react-icons/fa6";
+import { FaFacebook, FaGoogle } from "react-icons/fa";
+import { TbBrandYahoo } from "react-icons/tb";
 
 function Copyright(props) {
     return (
@@ -23,12 +30,12 @@ function Copyright(props) {
             align="center"
             {...props}
         >
-            {'Copyright © '}
+            {"Copyright © "}
             <Link color="inherit" href="https://mui.com/">
                 Your Website
-            </Link>{' '}
+            </Link>{" "}
             {new Date().getFullYear()}
-            {'.'}
+            {"."}
         </Typography>
     );
 }
@@ -41,21 +48,21 @@ export default function SignIn() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+            email: data.get("email"),
+            password: data.get("password"),
         });
-        const response = fetch('http://localhost:3000/login', {
-            method: 'POST',
+        const response = fetch("http://localhost:3000/login", {
+            method: "POST",
             body: {
-                user_id: data.get('user_id'),
-                password: data.get('password'),
+                user_id: data.get("user_id"),
+                password: data.get("password"),
             },
         }).then((res) => {
-            console.log('res.ok:', res.ok);
+            console.log("res.ok:", res.ok);
             if (res.ok) {
                 setSuccess(true);
             } else {
-                alert('ログインできませんでした');
+                alert("ログインできませんでした");
             }
         });
         // .then(res => res.json())
@@ -70,24 +77,24 @@ export default function SignIn() {
                 <Box
                     sx={{
                         marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
                     }}
                 >
                     <Avatar
                         sx={{
                             m: 1,
-                            bgcolor: 'access',
-                            width: '80px',
-                            height: '80px',
+                            bgcolor: "access",
+                            width: "80px",
+                            height: "80px",
                         }}
                     >
                         {/* <LockOutlinedIcon /> */}
                         <img
                             src="./images/kabegami.gif"
                             alt="X"
-                            width={'100px'}
+                            width={"100px"}
                         />
                     </Avatar>
                     <Typography component="h1" variant="h5">
@@ -124,13 +131,18 @@ export default function SignIn() {
               label="Remember me"
             /> */}
                         <nav className="site-nav">
-                            <img src="./images/X.jpg" alt="X" />
-                            <a href="/auth/github">
-                                <img src="./images/github.png" alt="github" />
+                            <a href="/auth/google">
+                                <FaGoogle className="icon" />
                             </a>
-                            <img src="./images/facebook.png" alt="facebook" />
-                            <img src="./images/yahoo.png" alt="yahoo" />
-                            <img src="./images/line.png" alt="line" />
+                            <a href="/auth/github">
+                                <FaGithub className="icon" />
+                            </a>
+
+                            <RiTwitterXLine className="icon" />
+                            <FaFacebook className="icon" />
+                            <TbBrandYahoo className="icon" />
+                            <FaLine className="icon" />
+
                         </nav>
                         <Button
                             type="submit"

@@ -1,0 +1,32 @@
+h2 {
+    margin: 0;
+}
+p {
+    margin: 0 auto;
+}
+
+aside {
+    display: flex;
+    height: 100vh;
+    flex-flow: column;
+    justify-content: center;
+    gap: 40px;
+    margin: auto;
+}
+
+.aside-right {
+    gap: 0px;
+}
+
+img {
+    height: 80px;
+    width: auto;
+    border-radius: 10px;
+}
+
+.gabage {
+    display: block;
+    height: 100px;
+    width: auto;
+    margin: auto;
+}

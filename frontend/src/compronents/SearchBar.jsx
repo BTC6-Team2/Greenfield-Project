@@ -29,6 +29,10 @@ const SearchBar = (props) => {
                         sx={{ ml: 1, flex: 1 }}
                         placeholder="調べたいゴミの名前を入力してください"
                         inputProps={{ "aria-label": "search google maps" }}
+                        onChange={(e) => {
+                            console.log(e.target.value);
+                            setSearchWord(e.target.value);
+                        }}
                     />
                     <IconButton
                         type="button"
