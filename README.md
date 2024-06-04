@@ -4,19 +4,20 @@
 
 1.  [はじめに](#introduction)
 2.  [トピックの概要](#overview-of-topics)
+3.  [ファイル構成](#ファイル構成)
 3.  [環境設定](#environment)
 4.  [アプリのテスト](#installing-dependencies)
 5.  [参考資料](#resources)
 6.  [コントリビューション](#contributing)
-
+<a id="introduction"></a>
 ## イントロダクション
 
 ゴミ捨て快適アプリの実装
-
+<a id="overview-of-topics"></a>
 ## トピックの概要
 
 自治体によって様々なゴミ捨てルール、ゴミ捨て場所を検索できるアプリを実装します
-
+<a id="ファイル構成"></a>
 ## ファイル構成
 ```
 Greenfield-Project
