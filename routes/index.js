@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const environment = process.env.DATABASE_URL ? "production" : "development";
-
+const destroy = require("passport");
 // 特定のルートを管理する者らしい
 const router = express.Router();
 
@@ -145,18 +145,22 @@ router.get("/success", (req, res) => {
 //     });
 // });
 router.get("/logout", function (req, res, next) {
-    req.logout(function (err) {
-        if (err) {
-            return next(err);
-        }
-    });
+    req.session.passport.user = undefined;
+    res.redirect("/");
+
     // req.session.passport.user.destroy((err) => {
     //     if (err) {
     //         return next(err);
     //     }
     //     res.clearCookie("connect.sid");
     // });
-    req.session.passport.user = undefined;
-    res.redirect("/");
 });
+
+// router.get("/logout", function (req, res) {
+//     req.session.destroy(function (e) {
+//         req.logout();
+//         res.redirect("/");
+//     });
+// });
+
 module.exports = router;
