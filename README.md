@@ -205,4 +205,4 @@ Table type {
 npm run dev 　を実施
 localhost:3000 にアクセスして、アプリ画面が立ち上がることを確認してください
 
-[gif](https://img.gifmagazine.net/gifmagazine/images/4334877/original.mp4)
+![gif](https://github.com/BTC6-Team2/Greenfield-Project/assets/151001421/2923ae21-a673-4900-b6d3-fb62549fd068)
