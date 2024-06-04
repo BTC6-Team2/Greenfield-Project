@@ -9,7 +9,7 @@ aside {
     display: flex;
     height: 100vh;
     flex-flow: column;
-    justify-content: center;
+    justify-content: start;
     gap: 40px;
     margin: auto;
 }
