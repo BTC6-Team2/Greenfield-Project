@@ -77,7 +77,7 @@ export default function SignIn() {
                         noValidate
                         sx={{ mt: 1 }}
                     >
-                        <TextField
+                        {/* <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -96,7 +96,8 @@ export default function SignIn() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                        />
+                        /> */}
+                        <p>外部アプリ認証でログインする</p>
                         <nav className="site-nav">
                             <a href="/auth/google">
                                 <FaGoogle className="icon" />
