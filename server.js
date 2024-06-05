@@ -1,14 +1,12 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const cors = require("cors");
-const session = require("express-session");
-const path = require("path");
-const config = require("./knexfile");
-const environment = process.env.DATABASE_URL ? "production" : "development";
-const knex = require("knex")(config[environment]);
-console.log("environment", environment);
-
-// module.exports = knex(config[environment]);
+const cors = require('cors');
+const session = require('express-session');
+const path = require('path');
+const config = require('./knexfile');
+const environment = process.env.DATABASE_URL ? 'production' : 'development';
+const knex = require('knex')(config[environment]);
+console.log('environment', environment);
 
 // ======曖昧検索用helper============
 function kanaToHira(str) {
@@ -27,37 +25,38 @@ function hiraToKana(str) {
 const setupServer = () => {
     app.use(cors());
     app.use(express.json());
-    app.use("/", express.static(__dirname + "/frontend/dist",{
-        redirect:false
-    }));
+    app.use(
+        '/',
+        express.static(__dirname + '/frontend/dist', {
+            redirect: false,
+        })
+    );
     app.use(express.urlencoded({ extended: false }));
     // これは何？？
     app.use(
         session({
-            secret: "keyboard cat", //秘密鍵
+            secret: 'keyboard cat', //秘密鍵
             resave: true,
             saveUninitialized: false,
         })
     );
     // 特定のルートのルーターをappで機能させる
-    app.use("/", require("./routes/index"));
+    app.use('/', require('./routes/index'));
 
-    app.get("/api/stations", async (req, res) => {
+    app.get('/api/stations', async (req, res) => {
         const allStations = await knex
             .distinct(
-                "address",
-                "day_time",
-                "station_name",
-                "latitude",
-                "longitude"
+                'address',
+                'day_time',
+                'station_name',
+                'latitude',
+                'longitude'
             )
-            .from("station");
+            .from('station');
         res.send(allStations);
     });
 
-    app.get("/api/items", async (req, res) => {
-        // console.log("req.query.word: ", req.query.word);
-        // if (!!req.query.word) {
+    app.get('/api/items', async (req, res) => {
         const searchWord = req.query.word;
         const regex = /^[ぁ-ん]/u;
         const regex2 = /^[ァ-ヴ]/u;
@@ -74,38 +73,44 @@ const setupServer = () => {
             searchWordKana = searchWord;
             searchWordHira = searchWord;
         }
+        console.log('searchWord: ', searchWord);
+        console.log('searchWordKana: ', searchWordKana);
+        console.log('searchWordHira: ', searchWordHira);
 
-        const likeNameItems = await knex
-            .select({ id: "id", itemName: "item_name" })
-            .from("item")
-            // .whereLike("item_name", `%${searchWord}%`);
-            .whereLike("item_name", `%${searchWordHira}%`)
-            .orWhereLike("item_name", `%${searchWordKana}%`);
+        const likeNameItems =
+            searchWord === 'undefined'
+                ? await knex
+                      .select({ id: 'id', itemName: 'item_name' })
+                      .from('item')
+                : await knex
+                      .select({ id: 'id', itemName: 'item_name' })
+                      .from('item')
+                      .whereLike('item_name', `%${searchWordHira}%`)
+                      .orWhereLike('item_name', `%${searchWordKana}%`);
         if (likeNameItems.length) {
             return res.status(200).send(likeNameItems);
         }
         return res.status(200).send([]);
         // }
-        // return res.status(200).send([]);
     });
 
-    app.get("/api/items/:id", async (req, res) => {
+    app.get('/api/items/:id', async (req, res) => {
         try {
             const id = req.params.id;
             const itemData = await knex
                 .select(
-                    "item.item_name",
-                    "type.type_name",
-                    "station.station_name",
-                    "station.address",
-                    "station.day_time",
-                    "station.latitude",
-                    "station.longitude"
+                    'item.item_name',
+                    'type.type_name',
+                    'station.station_name',
+                    'station.address',
+                    'station.day_time',
+                    'station.latitude',
+                    'station.longitude'
                 )
-                .from("item")
-                .leftJoin("type", "item.type_id", "=", "type.id")
-                .leftJoin("station", "item.type_id", "=", "station.type_id")
-                .where("item.id", id)
+                .from('item')
+                .leftJoin('type', 'item.type_id', '=', 'type.id')
+                .leftJoin('station', 'item.type_id', '=', 'station.type_id')
+                .where('item.id', id)
                 // .first()
                 .then((res) => ({
                     itemName: res[0].item_name,
@@ -126,7 +131,7 @@ const setupServer = () => {
     });
 
     app.use((req, res, next) => {
-        res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+        res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
     });
     return app;
 };
@@ -137,9 +142,3 @@ module.exports = { setupServer };
 app.listen(PORT, () =>
     console.log(`listening on port : http://localhost:${PORT}`)
 );
-
-// 品目:
-// 分類:
-// 回収施設名:
-// 住所:
-// 開設時間:

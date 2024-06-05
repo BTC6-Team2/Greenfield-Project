@@ -1,16 +1,10 @@
-import { useState, useEffect } from "react";
-import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-// import "./App.css";
-// import CurrentPostion from "./components/CurrentPosition";
-// import Nall from "./components/Nall";
-// import Nearest from "./components/Nearest";
-// import Submit from "./components/Submit";
-import L from "leaflet";
+import { useState, useEffect } from 'react';
+import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
 L.Icon.Default.imagePath =
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/";
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/';
 
-// 現在地取得
 const getCurrentPosition = () =>
     new Promise((resolve, reject) =>
         navigator.geolocation.getCurrentPosition(resolve, reject)
@@ -20,11 +14,11 @@ const Mpp = () => {
     const [mapKey, setMapKey] = useState(0); //Map再描画用
     const [currentPosition, setCurrentPosition] = useState({ lat: 0, lng: 0 });
     const [placeData, setPlaceData] = useState([]);
-    const [mapzoom, setMapzoom] = useState("13");
+    const [mapzoom, setMapzoom] = useState('13');
 
     useEffect(() => {
         moveCurrentPosition();
-        fetch("/api/list")
+        fetch('/api/list')
             .then((res) => res.json())
             .then((data) => setPlaceData(data));
     }, []);
@@ -40,13 +34,13 @@ const Mpp = () => {
 
     // 検索処理
     const getAllList = () => {
-        setMapzoom("13");
+        setMapzoom('13');
         setCurrentPosition({
             lat: 35.175,
             lng: 137.06,
         });
         setMapKey(new Date().getTime());
-        fetch("/api/list")
+        fetch('/api/list')
             .then((res) => res.json())
             .then((data) => setPlaceData(data));
     };
@@ -68,7 +62,7 @@ const Mpp = () => {
     }
 
     const getNearestList = async () => {
-        setMapzoom("16");
+        setMapzoom('16');
         const location = await getCurrentPosition();
         // console.log(location)
         setCurrentPosition({
@@ -76,8 +70,7 @@ const Mpp = () => {
             lng: location.coords.longitude,
         });
         // console.log(currentPosition)
-        setM
-         (new Date().getTime());
+        setMap(new Date().getTime());
         placeData.forEach(
             (obj) =>
                 (obj.distance =
@@ -86,7 +79,7 @@ const Mpp = () => {
                         currentPosition.lng,
                         obj.lat,
                         obj.lng
-                    ).toFixed(3) + "km")
+                    ).toFixed(3) + 'km')
         );
         placeData.sort((a, b) => {
             if (a.distance < b.distance) return -1;
@@ -95,16 +88,16 @@ const Mpp = () => {
         });
     };
 
-    const [addAddress, setAddAddress] = useState("");
-    const [addName, setAddName] = useState("");
-    const [addLat, setAddLat] = useState("");
-    const [addLng, setAddLng] = useState("");
+    const [addAddress, setAddAddress] = useState('');
+    const [addName, setAddName] = useState('');
+    const [addLat, setAddLat] = useState('');
+    const [addLng, setAddLng] = useState('');
 
     function clickSubmit() {
-        fetch("/api/list", {
-            method: "POST",
+        fetch('/api/list', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 name: addName,
@@ -148,25 +141,17 @@ const Mpp = () => {
                 placeholder="経度 longitude"
                 onChange={(event) => setAddLng(event.target.value)}
             />
-            {/* <Submit className="add_point_submit" onClick={clickSubmit}></Submit> */}
             <MapContainer
                 id="map"
                 key={mapKey}
                 center={currentPosition}
                 zoom={mapzoom}
-                style={{ height: "60vh", width: "80vw" }}
+                style={{ height: '60vh', width: '80vw' }}
             >
-                {/* 地図のタイル情報 */}
                 <TileLayer
-                    //地理院タイル=>位置情報とズレる
-                    // attribution='&amp;copy <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">地理院タイル</a>'
-                    // url="https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png"
-                    // attribution='&amp;copy <a href="http://osm.org/copyright";>OpenStreetMap</a> contributors'
-                    // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {/* 現在地ピン */}
                 <Marker id="map" position={currentPosition}>
                     <Popup>現在地</Popup>
                 </Marker>
@@ -189,10 +174,9 @@ const Mpp = () => {
 
             {placeData.map((ele) => (
                 <div className="list-button" key={ele.id}>
-                    <span style={{ color: "Royalblue" }}>{ele.name}</span> |{" "}
-                    <span style={{ color: "Seagreen" }}>{ele.address}</span> |{" "}
-                    <span style={{ color: "Darkred" }}>{ele.distance}</span>
-                    {/* <button onClick={() => deleteMark(ele.id)}>削除</button> */}
+                    <span style={{ color: 'Royalblue' }}>{ele.name}</span> |{' '}
+                    <span style={{ color: 'Seagreen' }}>{ele.address}</span> |{' '}
+                    <span style={{ color: 'Darkred' }}>{ele.distance}</span>
                 </div>
             ))}
         </>

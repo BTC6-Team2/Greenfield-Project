@@ -1,11 +1,11 @@
-import { Button } from "@mui/material";
-import React from "react";
-import "./Header.css";
+import { Button } from '@mui/material';
+import React from 'react';
+import './Header.css';
 
 const Header = () => {
     const logout = () => {
-        fetch("http://localhost:3000/logout").then((res) => {
-            console.log("logout処理できてるか res :", res.ok);
+        fetch('http://localhost:3000/logout').then((res) => {
+            console.log('logout処理できてるか res :', res.ok);
         });
     };
     return (
@@ -14,7 +14,6 @@ const Header = () => {
             <h2>ごみ出しアプリ</h2>
 
             <div className="logout">
-                {/* <button onClick={logout}>Logout</button> */}
                 <button>
                     <a href="/logout">ログアウト</a>
                 </button>

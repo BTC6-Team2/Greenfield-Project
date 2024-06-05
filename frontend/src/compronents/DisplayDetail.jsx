@@ -11,11 +11,7 @@ import Map from './Map';
 
 const DisplayDetail = ({ trashId }) => {
     const [info, setInfo] = useState();
-    // ゴミ出しデータ
     const [geoList, setGeoList] = useState([]);
-    //ゴミの捨て場所とかをfetchする
-    // GET api/items/:id
-    // !トラッシュIDが変更されるたびにfetchしてゴミ捨て場の詳細を取得
 
     useEffect(() => {
         console.log(trashId);
@@ -33,8 +29,6 @@ const DisplayDetail = ({ trashId }) => {
             <div className="display_ditail">
                 <h2>品目：{info && info.itemName}</h2>
                 <h2>分類：{info && info.typeName}</h2>
-                {/* <h2>{info[0] ? info[0].itemName}</h2>
-      <h2>{info[0].typeName}</h2> */}
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 800 }} aria-label="simple table">
                         <TableHead>
@@ -80,20 +74,6 @@ const DisplayDetail = ({ trashId }) => {
             <Map geoList={geoList} />
         </>
     );
-
-    // return (
-    //   <div>
-    //     {info.map((itemObj, index) => (
-    //       <section key={index}>
-    //         <h2>品目：{itemObj.item_name}</h2>
-    //         <p>分類: {itemObj.type_name}</p>
-    //         <p>回収施設名: {itemObj.station_name}</p>
-    //         <p>住所: {itemObj.address}</p>
-    //         <p>開設時間: {itemObj.day_time}</p>
-    //       </section>
-    //     ))}
-    //   </div>
-    // );
 };
 
 export default DisplayDetail;

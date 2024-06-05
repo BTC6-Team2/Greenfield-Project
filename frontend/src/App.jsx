@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import SignIn from "./compronents/SignIn";
-import Map from "./compronents/Map";
-import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { SearchBox } from "./compronents/SearchBox";
-import { NoMatch } from "./compronents/NoMatch";
+import React, { useState } from 'react';
+import SignIn from './compronents/SignIn';
+import Map from './compronents/Map';
+import './App.css';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { SearchBox } from './compronents/SearchBox';
+import { NoMatch } from './compronents/NoMatch';
 
 const App = () => {
-    const [searchWord, setSearchWord] = useState("");
+    const [searchWord, setSearchWord] = useState('undefined');
 
     return (
         <div>
@@ -25,11 +25,6 @@ const App = () => {
                     }
                 />
                 <Route path="*" element={<NoMatch />} />
-
-                {/* <Header />
-            <SearchBar setSearchWord={setSearchWord} />
-            <DisplayResult searchWord={searchWord} />
-            <DisplayDetail /> */}
             </Routes>
         </div>
     );
