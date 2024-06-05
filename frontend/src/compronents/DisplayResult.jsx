@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import DisplayDetail from "./DisplayDetail";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+import React, { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import DisplayDetail from './DisplayDetail';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 
 // !setGeoList追加
 const DisplayResult = ({ searchWord }) => {
     const [itemList, setItemList] = useState([]);
-    const [trashId, setTrashId] = useState("");
+    const [trashId, setTrashId] = useState('');
     const [open, setOpen] = React.useState(false);
 
     //   [
@@ -35,14 +35,14 @@ const DisplayResult = ({ searchWord }) => {
     //ゴミの捨て場所とかをfetchする
     async function getItems(word) {
         // console.log(word);
-        if (word === "") {
-            // console.log("null");
-        } else {
-            const Items = await fetch(`/api/items?word=${word}`);
-            const itemArray = await Items.text();
-            console.log(itemArray);
-            setItemList(JSON.parse(itemArray));
-        }
+        // if (word === "") {
+        // console.log("null");
+        // } else {
+        const Items = await fetch(`/api/items?word=${word}`);
+        const itemArray = await Items.text();
+        console.log(itemArray);
+        setItemList(JSON.parse(itemArray));
+        // }
     }
     // !サーチワードが変わるたびにfetchして、ゴミワードを取得している
     useEffect(() => {
@@ -63,14 +63,14 @@ const DisplayResult = ({ searchWord }) => {
         <React.Fragment>
             <Box
                 sx={{
-                    width: "100%",
+                    width: '100%',
                     maxWidth: 360,
-                    bgcolor: "background.paper",
+                    bgcolor: 'background.paper',
                     // border: "1px solid red",
                 }}
             >
                 {/* !itemlistをmapして検索結果としている */}
-                <List>
+                <List sx={{ overflow: 'auto', height: '70vh' }}>
                     {itemList.map((ele, index) => {
                         let idNum = ele.id;
                         return (
@@ -92,7 +92,7 @@ const DisplayResult = ({ searchWord }) => {
                 </List>
             </Box>
             {/* モーダル */}
-            <Dialog maxWidth={"lg"} open={open} onClose={handleClose}>
+            <Dialog maxWidth={'lg'} open={open} onClose={handleClose}>
                 <DialogTitle>詳細</DialogTitle>
                 <DialogContent>
                     <DisplayDetail trashId={trashId}></DisplayDetail>
